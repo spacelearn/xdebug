@@ -1,0 +1,26 @@
+services:
+  api:
+    image: spacelearn/php:8.0-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/:/var/www/html
+    networks:
+      - backend
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: project
+    ports:
+      - "46715:3306"
+    networks:
+     - backend
+    volumes:
+      - mysql-data:/var/lib/mysql
+networks:
+  backend:
+volumes:
+  mysql-data:
