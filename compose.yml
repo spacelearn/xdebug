@@ -10,16 +10,29 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: project
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     ports:
       - "46715:3306"
     networks:
      - backend
     volumes:
       - mysql-data:/var/lib/mysql
+  composer:
+    image: composer:2
+    volumes:
+    - "./src/:/app"
+    profiles: ["tool"]
+  artisan:
+    image: spacelearn/php:8.0-apache
+    volumes:
+      - ./src/:/var/www/html
+    entrypoint: ["/var/www/html/artisan"]
+    networks:
+      - backend
+    profiles: ["tool"]
 networks:
   backend:
 volumes:

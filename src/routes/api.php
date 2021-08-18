@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/greetings', function() {
-    $a = 1;
-    $b = 2;
-    $c = $a + $b;
-    return $c;
+Route::get('/greet', function() {
+    return phpinfo();
 });
